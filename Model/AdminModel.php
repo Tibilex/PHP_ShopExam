@@ -14,19 +14,23 @@ class AdminModel
       $this->name = $name;
    }
 
-   function getId(){
+   function getId(): int
+   {
       return $this->id;
    }
 
-   function getLogin(){
+   function getLogin(): string
+   {
       return $this->login;
    }
 
-   function getPassword(){
+   function getPassword(): string
+   {
       return $this->password;
    }
 
-   function getName(){
+   function getName(): string
+   {
       return $this->name;
    }
 

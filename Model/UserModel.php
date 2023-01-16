@@ -18,27 +18,33 @@ class UserModel
       $this->address = $address;
    }
 
-   function getId(){
+   function getId(): int
+   {
       return $this->id;
    }
 
-   function getMail(){
+   function getMail(): string
+   {
       return $this->mail;
    }
 
-   function getPassword(){
+   function getPassword(): string
+   {
       return $this->password;
    }
 
-   function getName(){
+   function getName(): string
+   {
       return $this->name;
    }
 
-   function getPhone(){
+   function getPhone(): int
+   {
       return $this->phone;
    }
 
-   function getAddress(){
+   function getAddress(): string
+   {
       return $this->address;
    }
 

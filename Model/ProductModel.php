@@ -17,23 +17,28 @@ class ProductModel
       $this->image = $image;
    }
 
-   function getId(){
+   function getId(): int
+   {
       return $this->id;
    }
 
-   function getPrice(){
+   function getPrice(): int
+   {
       return $this->price;
    }
 
-   function getCode(){
+   function getCode(): int
+   {
       return $this->code;
    }
 
-   function getTitle() {
+   function getTitle(): string
+   {
       return $this->title;
    }
 
-   function getImage() {
+   function getImage(): string
+   {
       return $this->image;
    }
 

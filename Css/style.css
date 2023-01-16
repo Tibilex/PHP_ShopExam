@@ -109,9 +109,6 @@ header{
     align-items: center;
     justify-content: space-around;
 }
-.product-edit__form textarea{
-    height: 60px;
-}
 .product-edit__form p{
     margin-left: 5px;
 }

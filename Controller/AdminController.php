@@ -1,5 +1,5 @@
 <?php
-const ROOTpm = 'E:\PHP\ShopExam\\';
+const ROOTpm = 'E:\PHP\ShopExam\\'; // My path for localhost
 include ROOTpm . 'Model/ProductModel.php';
 include ROOTpm . 'Model/AdminModel.php';
 include ROOTpm . 'Model/UserModel.php';
@@ -10,22 +10,23 @@ class AdminController
    private AdminModel $administrator;
    private UserModel $user;
 
-   function setProduct($id, $title, $price, $code, $image)
+   function setProduct($id, $title, $price, $code, $image): void
    {
       $this->product = new ProductModel($id, $title, $price, $code, $image);
    }
 
-   function setAdministrator($id, $login, $password, $name)
+   function setAdministrator($id, $login, $password, $name): void
    {
       $this->administrator = new AdminModel($id, $login, $password, $name, );
    }
 
-   function setUser($id, $mail, $password, $name, $phone, $address)
+   function  setUser($id, $mail, $password, $name, $phone, $address): void
    {
       $this->user = new UserModel($id, $mail, $password, $name, $phone, $address);
    }
 
-   public function BuildProductTileAdmin(){
+   public function BuildProductTileAdmin(): string
+   {
       return
          "<div class='_admin__container'>".
          "<form class='product-edit__form' method='post' enctype='multipart/form-data'".
@@ -44,7 +45,7 @@ class AdminController
          "</div>";
    }
 
-   public function BuildAdminTile(){
+   public function BuildAdminTile(): string{
       return
          "<div class='_admin__container'>".
          "<form class='product-edit__form' method='post' enctype='multipart/form-data'".
@@ -61,7 +62,7 @@ class AdminController
          "</div>";
    }
 
-   public function BuildUserTile(){
+   public function BuildUserTile(): string{
       return
          "<div class='_admin__container'>".
          "<form class='product-edit__form' method='post' enctype='multipart/form-data'".

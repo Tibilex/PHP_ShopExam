@@ -20,7 +20,7 @@
    <main class="admin__panel--main">
       <div class="admin-product__container">
          <?php
-         const ROOTadm = 'E:\PHP\ShopExam\\';
+         const ROOTadm = 'E:\PHP\ShopExam\\'; // My path for localhost
          include ROOTadm . 'Controller/AdminController.php';
 
          $connectionString = new mysqli("localhost", "root", "", "education");
