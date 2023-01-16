@@ -18,7 +18,33 @@
       </div>
    </header>
    <main>
+      <div class="admin-product__container">
+         <?php
+         const ROOTadm = 'E:\PHP\ShopExam\\';
+         include ROOTadm . 'Controller/AdminController.php';
 
+         $connectionString = new mysqli("localhost", "root", "", "education");
+         if($connectionString->connect_error){
+            echo 'ERROR';
+         }
+         else{
+            $request = "SELECT * FROM `product_1`";
+
+            if($results = $connectionString->query($request)) {
+               foreach ($results as $res){
+                  $products = new AdminController();
+                  $products->setProduct($res["id"], $res["name"], $res["price"], $res["code"], $res["image"]);
+                  echo $products->BuildProductTileAdmin();
+               }
+               $results->free();
+            }
+            else {
+               echo '<p>Data NOT selected!</p>';
+            }
+         }
+         $connectionString->close();
+         ?>
+      </div>
    </main>
    <footer>
 

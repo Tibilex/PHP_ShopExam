@@ -57,3 +57,41 @@ header{
     letter-spacing: 1px;
     border: none;
 }
+
+/* admin panel block */
+
+.admin-product__container{
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+._admin__container{
+    margin: 2px 0;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    border: 1px solid black;
+    background: #5897fb;
+}
+._admin__container textarea{
+    height: 45px;
+    text-align: center;
+}
+.item__title-size{
+    width: 250px;
+}
+.item__title-size2{
+    width: 100px;
+}
+._admin__container p{
+    margin-left: 10px;
+}
+
+.admin-account__container{
+    width: 20%;
+    border: 2px solid #5897fb ;
+}

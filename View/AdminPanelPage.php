@@ -18,11 +18,13 @@
       </div>
    </header>
    <main>
+      <div class="admin-account__container">
+         <form>
+
+         </form>
+      </div>
 
    </main>
-   <footer>
-
-   </footer>
 </div>
 </body>
 </html>
