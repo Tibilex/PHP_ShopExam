@@ -14,7 +14,7 @@ class AdminController
    public function BuildProductTileAdmin(){
       return
          "<div class='_admin__container'>".
-         "<p name='itemId'>ID: ".$this->product->getId()."</p>".
+         "<p>ID: ".$this->product->getId()."</p>".
          "<label for='itemTitle'>Название товара:</label>".
          "<textarea class='item__title-size' name='itemTitle'>".$this->product->getTitle()."</textarea>".
          "<label for='itemPrice'>Цена товара:</label>".
