@@ -18,7 +18,7 @@
       </div>
    </header>
    <main>
-      <div class="admin-product__container">
+      <div class="admin-product__container admin-product--position">
          <?php
          const ROOTadm = 'E:\PHP\ShopExam\\';
          include ROOTadm . 'Controller/AdminController.php';

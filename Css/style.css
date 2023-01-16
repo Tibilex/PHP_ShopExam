@@ -59,17 +59,22 @@ header{
 }
 
 /* admin panel block */
+.admin__panel--main{
+    display: flex;
+    padding-top: 5px;
+}
 
 .admin-product__container{
-    width: 100%;
+    margin: 0 0 0 5px;
     position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    width: 100%;
+}
+.admin-product--position{
+    margin-top: 2px;
 }
 ._admin__container{
     margin: 2px 0;
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -77,6 +82,7 @@ header{
     border: 1px solid black;
     background: #5897fb;
 }
+
 ._admin__container textarea{
     height: 45px;
     text-align: center;
@@ -87,11 +93,67 @@ header{
 .item__title-size2{
     width: 100px;
 }
-._admin__container p{
-    margin-left: 10px;
+.item__title-size3{
+    width: 150px;
 }
 
 .admin-account__container{
-    width: 20%;
-    border: 2px solid #5897fb ;
+    width: 25%;
+    height: 100vh;
+    background: #5897fb;
+}
+
+.product-edit__form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.product-edit__form textarea{
+    height: 60px;
+}
+.product-edit__form p{
+    margin-left: 5px;
+}
+.item-edit__button{
+    height: 42px;
+    width: 10%;
+    font-size: 14px;
+    background: #0e860e;
+    margin: 0 5px;
+    padding: 0 5px;
+    text-transform: uppercase;
+    color: white;
+    transition: 0.5s ease 0ms;
+}
+.item-edit__button--size{
+    width: 12%;
+}
+.item-edit__button:hover{
+    background: #b43c3c;
+}
+
+.add-admin__form{
+    display: flex;
+    flex-direction: column;
+}
+.add-admin__form label{
+    margin: 5px 0 0 5px;
+}
+.add-admin__form input{
+    outline: 0;
+    margin: 0 5px 0 5px;
+    height: 30px;
+}
+.add-admin__form input:nth-last-child(-n +1){
+    margin-top: 10px;
+    height: 40px;
+    background: #b43c3c;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.5s ease 0ms;
+}
+.add-admin__form input:nth-last-child(-n +1):hover{
+    background: #722323;
 }
