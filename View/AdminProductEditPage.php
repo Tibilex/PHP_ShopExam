@@ -13,7 +13,7 @@
       <div class="navbar__navigation">
          <a class="navigation__link" href="./AdminPanelPage.php">Назад</a>
          <a class="navigation__link" href="#">Редактор категорий</a>
-         <a class="navigation__link" href="./AdminProductEditPage.php">Редактор товаров</a>
+         <a class="navigation__link" href="./AdminAccountEditPage.php">Редактор профилей пользователей</a>
          <a class="navigation__link" href="../index.php">Выход</a>
       </div>
    </header>
@@ -26,6 +26,5 @@
 </div>
 </body>
 </html>
-
 
 
