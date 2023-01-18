@@ -1,3 +1,9 @@
+<?php
+const ROOTadm = 'E:\PHP\ShopExam\\'; // My path for localhost
+include ROOTadm . 'Controller/ProductController.php';
+
+$products = new ProductController();
+?>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
@@ -18,32 +24,47 @@
       </div>
    </header>
    <main>
-      <div class="admin-product__container admin-product--position">
-         <?php
-         const ROOTadm = 'E:\PHP\ShopExam\\'; // My path for localhost
-         include ROOTadm . 'Controller/AdminController.php';
-
-         $connectionString = new mysqli("localhost", "root", "", "education");
-         if($connectionString->connect_error){
-            echo 'ERROR';
-         }
-         else{
-            $request = "SELECT * FROM `product_1`";
-
-            if($results = $connectionString->query($request)) {
-               foreach ($results as $res){
-                  $products = new AdminController();
-                  $products->setProduct($res["id"], $res["name"], $res["price"], $res["code"], $res["image"]);
-                  echo $products->BuildProductTileAdmin();
-               }
-               $results->free();
+      <div class="admin__panel--main">
+         <div class="admin-account__container">
+            <form enctype="multipart/form-data" class="add-admin__form" method="post">
+               <label for="prodName">Product name:</label>
+               <input name="prodName" type="text">
+               <label for="prodPrice">Product Price:</label>
+               <input name="prodPrice" type="text">
+               <label for="prodCode">Product Code:</label>
+               <input name="prodCode" type="text">
+               <label for="prodImage">Product Image:</label>
+               <input name="file" type="file" accept="image/png, image/jpeg, image/jpg">
+               <input type="submit" name="addBtn" value="Add Product">
+            </form>
+            <?php
+            if (isset($_POST['addBtn'])){
+               $pName = $_POST['itemTitle'];
+               $pPrice = $_POST['prodPrice'];
+               $pCode = $_POST['prodCode'];
+               $pImage = $_FILES['file']['name'];
+               $products->AddProductInDB($pName, $pPrice, $pCode, $pImage);
             }
-            else {
-               echo '<p>Data NOT selected!</p>';
+
+            if (isset($_POST['productDelBtn'])){
+               $products->DeleteProductInDB();
             }
-         }
-         $connectionString->close();
-         ?>
+
+            if (isset($_POST['productEditBtn'])){
+               $pName = $_POST['itemTitle'];
+               $pPrice = $_POST['itemPrice'];
+               $pCode = $_POST['itemCode'];
+               $pImage = $_POST['itemImg'];
+               $products->EditProduct($pName, $pPrice, $pCode, $pImage);
+            }
+            ?>
+         </div>
+         <div class="admin-product__container admin-product--position">
+
+            <?php
+            $products->GetAllProductsAdmin();
+            ?>
+         </div>
       </div>
    </main>
    <footer>
