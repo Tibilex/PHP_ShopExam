@@ -18,11 +18,19 @@
          <a class="navigation__link" href="#">Контакты</a>
       </div>
       <div class="navbar__navigation navbar__accounting">
-         <a class="account__link" href="./View/AdminPanelPage.php">Вход</a>
+         <a class="account__link" href="./View/LoginPage.php">Вход</a>
          <a class="account__link cart__link" href="./View/UserCartPage.php">Корзина</a>
       </div>
    </header>
-   <main>
+   <main class="main__container">
+      <div class="filter__container"></div>
+      <div class="products__container">
+         <?php
+         include 'Controller/ProductController.php';
+         $products = new ProductController();
+         $products->GetAllProductsStyled();
+         ?>
+      </div>
 
    </main>
    <footer>

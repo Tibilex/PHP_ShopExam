@@ -5,39 +5,11 @@ include ROOTpm . 'Model/UserModel.php';
 
 class AdminController
 {
-   private ProductModel $product;
    private UserModel $user;
-
-
-
-   function setProduct($id, $title, $price, $code, $image): void
-   {
-      $this->product = new ProductModel($id, $title, $price, $code, $image);
-   }
 
    function  setUsers($id, $mail, $password, $name, $role, $phone, $address): void
    {
       $this->user = new UserModel($id, $mail, $password, $name, $role, $phone, $address);
-   }
-
-   public function BuildProductTileAdmin(): string
-   {
-      return
-         "<div class='_admin__container'>".
-         "<form class='product-edit__form' method='post' enctype='multipart/form-data'".
-         "<p>ID: ".$this->product->getId()."</p>".
-         "<label for='itemTitle'>P. Title:</label>".
-         "<textarea class='item__title-size' name='itemTitle'>".$this->product->getTitle()."</textarea>".
-         "<label for='itemPrice'>P. Price:</label>".
-         "<textarea class='item__title-size2' name='itemPrice'>".$this->product->getPrice()."</textarea>".
-         "<label for='itemCode'>P. Code:</label>".
-         "<textarea class='item__title-size2' name='itemCode'>".$this->product->getCode()."</textarea>".
-         "<label for='itemImg'>Img Path:</label>".
-         "<textarea name='itemImg'>".$this->product->getImage()."</textarea>".
-         "<button class='item-edit__button' type='submit' value=".$this->product->getId()." name='productEditBtn'>Edit</button>".
-         "<button class='item-edit__button' type='submit' value=".$this->product->getId()." name='productDelBtn'>Delete</button>".
-         "</form>".
-         "</div>";
    }
 
    public function BuildUserTile(): string{

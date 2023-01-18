@@ -7,14 +7,16 @@ class ProductModel
    private int $price;
    private int $code;
    private string $image;
+   private string $category;
 
-   public function __construct($id, $title, $price, $code, $image)
+   public function __construct($id, $title, $price, $code, $image, $category)
    {
       $this->id = $id;
       $this->title = $title;
       $this->price = $price;
       $this->code = $code;
       $this->image = $image;
+      $this->category = $category;
    }
 
    function getId(): int
@@ -42,6 +44,11 @@ class ProductModel
       return $this->image;
    }
 
+   function getCategory(): string
+   {
+      return $this->category;
+   }
+
    public function __destruct()
    {
       unset($this->id);
@@ -49,5 +56,6 @@ class ProductModel
       unset($this->code);
       unset($this->image);
       unset($this->price);
+      unset($this->category);
    }
 }
