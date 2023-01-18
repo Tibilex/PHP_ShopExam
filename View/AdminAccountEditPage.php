@@ -26,6 +26,20 @@
          $users = new AdminController();
          $users->GetUser('user');
 
+         if (isset($_POST['userDelBtn'])){
+            $users->DeleteUser();
+            echo "<script>document.location = './AdminAccountEditPage.php';</script>";
+         }
+
+         if (isset($_POST['userEditBtn'])){
+            $mail = $_POST['itemLogin'];
+            $password = $_POST['itemPass'];
+            $name = $_POST['itemName'];
+            $phone = $_POST['itemPhone'];
+            $address = $_POST['itemAddress'];
+            $users->EditUser($mail, $password, $name, $phone, $address);
+            echo "<script>document.location = './AdminAccountEditPage.php';</script>";
+         }
          ?>
       </div>
    </main>

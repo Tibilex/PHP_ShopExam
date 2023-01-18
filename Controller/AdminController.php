@@ -61,19 +61,18 @@ class AdminController
          "</div>";
    }
 
-   public function GetUser($role){
+   public function GetUser($role): void
+   {
       $connectionString = new mysqli("localhost", "root", "", "education");
       if($connectionString->connect_error){
          echo 'ERROR';
       }
       else{
-         $request = 'SELECT * FROM `users` WHERE role="'.$role.'"';
+         $request = "SELECT * FROM users WHERE role='$role'";
 
          if($results = $connectionString->query($request)) {
             foreach ($results as $res){
                $admins = new AdminController();
-               if ($res["phone"] == null){ $admins->setUsers($res["id"], $res["mail"], $res["password"], $res["name"], $res['role'], "0000000000", $res["address"]); }
-               if ($res["address"] == null){ $admins->setUsers($res["id"], $res["mail"], $res["password"], $res["name"], $res['role'], $res["phone"], "No address"); }
                $admins->setUsers($res["id"], $res["mail"], $res["password"], $res["name"], $res['role'], $res["phone"], $res["address"]);
                echo $admins->BuildUserTile();
             }
@@ -84,6 +83,64 @@ class AdminController
          }
       }
       $connectionString->close();
+   }
+
+   public function AddAdministrator($mail, $password, $name, $phone): void
+   {
+      $connectionString = new mysqli("localhost", "root", "", "education");
+      if($connectionString->connect_error){
+         echo "error";
+      }
+      else{
+         $data = "INSERT INTO users (mail, password, name, phone, role, phone, address) VALUES ('$mail' , '$password', '$name', '$phone', 'administrator', '000', 'no address')";
+         if($connectionString->query($data)){
+            echo "<p>Data added!</p>";
+         }
+         else{
+            echo "<p>Data not added!</p>";
+         }
+         $connectionString->close();
+      }
+   }
+
+   public function DeleteUser(): void
+   {
+      $connectionString = new mysqli("localhost", "root", "", "education");
+      if($connectionString->connect_error){
+         echo "error";
+      }
+      else{
+         $itemId = $_POST['userDelBtn'];
+         $request = "DELETE FROM users WHERE id='$itemId'";
+
+         if($connectionString->query($request)){
+            $connectionString->close();
+         }
+         else{
+            $connectionString->close();
+         }
+      }
+   }
+
+   public function EditUser($mail, $password, $name, $phone, $address): void
+   {
+
+      $connectionString = new mysqli("localhost", "root", "", "education");
+      if ($connectionString->connect_error) {
+         echo "error";
+      }
+      else {
+         $itemId = $_POST['userEditBtn'];
+
+         $request = "UPDATE users SET mail='$mail', password='$password', name='$name', phone='$phone', address='$address' WHERE id='$itemId'";
+
+         if($connectionString->query($request)){
+            $connectionString->close();
+         }
+         else{
+            $connectionString->close();
+         }
+      }
    }
 
 }
