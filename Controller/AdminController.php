@@ -1,28 +1,23 @@
 <?php
 const ROOTpm = 'E:\PHP\ShopExam\\'; // My path for localhost
 include ROOTpm . 'Model/ProductModel.php';
-include ROOTpm . 'Model/AdminModel.php';
 include ROOTpm . 'Model/UserModel.php';
 
 class AdminController
 {
    private ProductModel $product;
-   private AdminModel $administrator;
    private UserModel $user;
+
+
 
    function setProduct($id, $title, $price, $code, $image): void
    {
       $this->product = new ProductModel($id, $title, $price, $code, $image);
    }
 
-   function setAdministrator($id, $login, $password, $name): void
+   function  setUsers($id, $mail, $password, $name, $role, $phone, $address): void
    {
-      $this->administrator = new AdminModel($id, $login, $password, $name, );
-   }
-
-   function  setUser($id, $mail, $password, $name, $phone, $address): void
-   {
-      $this->user = new UserModel($id, $mail, $password, $name, $phone, $address);
+      $this->user = new UserModel($id, $mail, $password, $name, $role, $phone, $address);
    }
 
    public function BuildProductTileAdmin(): string
@@ -31,33 +26,16 @@ class AdminController
          "<div class='_admin__container'>".
          "<form class='product-edit__form' method='post' enctype='multipart/form-data'".
          "<p>ID: ".$this->product->getId()."</p>".
-         "<label for='itemTitle'>Название товара:</label>".
+         "<label for='itemTitle'>P. Title:</label>".
          "<textarea class='item__title-size' name='itemTitle'>".$this->product->getTitle()."</textarea>".
-         "<label for='itemPrice'>Цена товара:</label>".
+         "<label for='itemPrice'>P. Price:</label>".
          "<textarea class='item__title-size2' name='itemPrice'>".$this->product->getPrice()."</textarea>".
-         "<label for='itemCode'>Код Товара:</label>".
+         "<label for='itemCode'>P. Code:</label>".
          "<textarea class='item__title-size2' name='itemCode'>".$this->product->getCode()."</textarea>".
-         "<label for='itemImg'>Путь Изображения:</label>".
+         "<label for='itemImg'>Img Path:</label>".
          "<textarea name='itemImg'>".$this->product->getImage()."</textarea>".
-         "<button class='item-edit__button' type='submit' value=".$this->product->getId()." name='productEditBtn'>Редактировать</button>".
-         "<button class='item-edit__button' type='submit' value=".$this->product->getId()." name='productDelBtn'>Удалить</button>".
-         "</form>".
-         "</div>";
-   }
-
-   public function BuildAdminTile(): string{
-      return
-         "<div class='_admin__container'>".
-         "<form class='product-edit__form' method='post' enctype='multipart/form-data'".
-         "<p>ID: ".$this->administrator->getId()."</p>".
-         "<label for='itemLogin'>Логин:</label>".
-         "<textarea class='item__title-size' name='itemLogin'>".$this->administrator->getLogin()."</textarea>".
-         "<label for='itemPass'>Пароль:</label>".
-         "<textarea class='item__title-size2' name='itemPass'>".$this->administrator->getPassword()."</textarea>".
-         "<label for='itemName'>Имя:</label>".
-         "<textarea class='item__title-size2' name='itemName'>".$this->administrator->getName()."</textarea>".
-         "<button class='item-edit__button item-edit__button--size' type='submit' value=".$this->administrator->getId()." name='adminEditBtn'>Редактировать</button>".
-         "<button class='item-edit__button item-edit__button--size' type='submit' value=".$this->administrator->getId()." name='adminDelBtn'>Удалить</button>".
+         "<button class='item-edit__button' type='submit' value=".$this->product->getId()." name='productEditBtn'>Edit</button>".
+         "<button class='item-edit__button' type='submit' value=".$this->product->getId()." name='productDelBtn'>Delete</button>".
          "</form>".
          "</div>";
    }
@@ -67,19 +45,45 @@ class AdminController
          "<div class='_admin__container'>".
          "<form class='product-edit__form' method='post' enctype='multipart/form-data'".
          "<p>ID: ".$this->user->getId()."</p>".
-         "<label for='itemLogin'>Логин:</label>".
+         "<label for='itemLogin'>Login:</label>".
          "<textarea class='item__title-size3' name='itemLogin'>".$this->user->getMail()."</textarea>".
-         "<label for='itemPass'>Пароль:</label>".
+         "<label for='itemPass'>Pass:</label>".
          "<textarea class='item__title-size2' name='itemPass'>".$this->user->getPassword()."</textarea>".
-         "<label for='itemName'>Имя:</label>".
+         "<label for='itemName'>Name:</label>".
          "<textarea class='item__title-size2' name='itemName'>".$this->user->getName()."</textarea>".
-         "<label for='itemPhone'>Телефон:</label>".
+         "<label for='itemPhone'>Phone:</label>".
          "<textarea class='item__title-size2' name='itemPhone'>".$this->user->getPhone()."</textarea>".
-         "<label for='itemAddress'>Адрес:</label>".
+         "<label for='itemAddress'>Address:</label>".
          "<textarea class='item__title-size3' name='itemAddress'>".$this->user->getAddress()."</textarea>".
-         "<button class='item-edit__button item-edit__button--size' type='submit' value=".$this->user->getId()." name='userEditBtn'>Редактировать</button>".
-         "<button class='item-edit__button item-edit__button--size' type='submit' value=".$this->user->getId()." name='userDelBtn'>Удалить</button>".
+         "<button class='item-edit__button item-edit__button--size' type='submit' value=".$this->user->getId()." name='userEditBtn'>Edit</button>".
+         "<button class='item-edit__button item-edit__button--size' type='submit' value=".$this->user->getId()." name='userDelBtn'>Delete</button>".
          "</form>".
          "</div>";
    }
+
+   public function GetUser($role){
+      $connectionString = new mysqli("localhost", "root", "", "education");
+      if($connectionString->connect_error){
+         echo 'ERROR';
+      }
+      else{
+         $request = 'SELECT * FROM `users` WHERE role="'.$role.'"';
+
+         if($results = $connectionString->query($request)) {
+            foreach ($results as $res){
+               $admins = new AdminController();
+               if ($res["phone"] == null){ $admins->setUsers($res["id"], $res["mail"], $res["password"], $res["name"], $res['role'], "0000000000", $res["address"]); }
+               if ($res["address"] == null){ $admins->setUsers($res["id"], $res["mail"], $res["password"], $res["name"], $res['role'], $res["phone"], "No address"); }
+               $admins->setUsers($res["id"], $res["mail"], $res["password"], $res["name"], $res['role'], $res["phone"], $res["address"]);
+               echo $admins->BuildUserTile();
+            }
+            $results->free();
+         }
+         else {
+            echo '<p>Data NOT selected!</p>';
+         }
+      }
+      $connectionString->close();
+   }
+
 }

@@ -8,12 +8,14 @@ class UserModel
    private string $name;
    private int $phone;
    private string $address;
+   private string $role;
 
-   function __construct($id, $mail, $password, $name, $phone, $address){
+   function __construct($id, $mail, $password, $name, $role, $phone = "no phone", $address = "no address"){
       $this->id = $id;
       $this->mail = $mail;
       $this->password = $password;
       $this->name = $name;
+      $this->role = $role;
       $this->phone = $phone;
       $this->address = $address;
    }
@@ -48,6 +50,11 @@ class UserModel
       return $this->address;
    }
 
+   function getRole(): string
+   {
+      return $this->role;
+   }
+
    public function __destruct()
    {
       unset($this->id);
@@ -56,5 +63,6 @@ class UserModel
       unset($this->name);
       unset($this->phone);
       unset($this->address);
+      unset($this->role);
    }
 }

@@ -124,7 +124,7 @@ header{
     transition: 0.5s ease 0ms;
 }
 .item-edit__button--size{
-    width: 12%;
+    width: 8%;
 }
 .item-edit__button:hover{
     background: #b43c3c;

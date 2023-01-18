@@ -20,12 +20,16 @@
    <main class="admin__panel--main">
       <div class="admin-account__container">
          <form class="add-admin__form">
-            <label for="adminLogin">Логин:</label>
+            <label for="adminLogin">Login:</label>
             <input name="adminLogin" type="text">
-            <label for="adminPass">Пароль:</label>
+            <label for="adminPass">Password:</label>
             <input name="adminPass" type="text">
-            <label for="adminName">Имя:</label>
+            <label for="adminName">Name:</label>
             <input name="adminName" type="text">
+            <label for="adminPhone">Phone:</label>
+            <input name="adminPhone" type="text">
+            <label for="adminAddress">Address:</label>
+            <input name="adminAddress" type="text">
             <input type="submit" name="addAdmin" value="Добавить">
          </form>
       </div>
@@ -34,26 +38,8 @@
          const ROOTadm = 'E:\PHP\ShopExam\\'; // My path for localhost
          include ROOTadm . 'Controller/AdminController.php';
 
-         $connectionString = new mysqli("localhost", "root", "", "education");
-         if($connectionString->connect_error){
-            echo 'ERROR';
-         }
-         else{
-            $request = "SELECT * FROM `administrators`";
-
-            if($results = $connectionString->query($request)) {
-               foreach ($results as $res){
-                  $admins = new AdminController();
-                  $admins->setAdministrator($res["id"], $res["login"], $res["password"], $res["name"]);
-                  echo $admins->BuildAdminTile();
-               }
-               $results->free();
-            }
-            else {
-               echo '<p>Data NOT selected!</p>';
-            }
-         }
-         $connectionString->close();
+         $admins = new AdminController();
+         $admins->GetUser("administrator");
          ?>
       </div>
    </main>

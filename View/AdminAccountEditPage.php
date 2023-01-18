@@ -23,26 +23,9 @@
          const ROOTadm = 'E:\PHP\ShopExam\\'; // My path for localhost
          include ROOTadm . 'Controller/AdminController.php';
 
-         $connectionString = new mysqli("localhost", "root", "", "education");
-         if($connectionString->connect_error){
-            echo 'ERROR';
-         }
-         else{
-            $request = "SELECT * FROM `users`";
+         $users = new AdminController();
+         $users->GetUser('user');
 
-            if($results = $connectionString->query($request)) {
-               foreach ($results as $res){
-                  $users = new AdminController();
-                  $users->setUser($res["id"], $res["mail"], $res["password"], $res["name"], $res["phone"], $res["address"]);
-                  echo $users->BuildUserTile();
-               }
-               $results->free();
-            }
-            else {
-               echo '<p>Data NOT selected!</p>';
-            }
-         }
-         $connectionString->close();
          ?>
       </div>
    </main>
