@@ -1,3 +1,15 @@
+<?php
+include 'Controller/ProductController.php';
+include 'Controller/UserController.php';
+$products = new ProductController();
+$users = new UserController();
+session_start();
+if (isset($_SESSION['userMail'])){
+   $user = $_SESSION['userMail'];
+}
+else
+   $_SESSION['userMail'] = null;
+?>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
@@ -18,6 +30,14 @@
          <a class="navigation__link" href="#">Контакты</a>
       </div>
       <div class="navbar__navigation navbar__accounting">
+
+         <a class="account__link" href="./View/UserAccountPage.php">
+            <?php
+            if (isset($user)){
+               echo $user;
+            }
+            ?>
+         </a>
          <a class="account__link" href="./View/LoginPage.php">Вход</a>
          <a class="account__link cart__link" href="./View/UserCartPage.php">Корзина</a>
       </div>
@@ -26,8 +46,6 @@
       <div class="filter__container"></div>
       <div class="products__container">
          <?php
-         include 'Controller/ProductController.php';
-         $products = new ProductController();
          $products->GetAllProductsStyled();
          ?>
       </div>

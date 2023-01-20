@@ -1,7 +1,7 @@
 <?php
 const ROOTadm = 'E:\PHP\ShopExam\\'; // My path for localhost
 include ROOTadm . 'Controller/UserController.php';
-
+session_start();
 $users = new UserController();
 ?>
 <html lang="en">
@@ -15,7 +15,7 @@ $users = new UserController();
 </head>
 <body>
    <div class="login-form__container">
-      <form class="login__form">
+      <form class="login__form" method="post">
          <label for="loginMail">Эл. адрес:</label>
          <input name="loginMail" type="text">
          <label for="loginPass">Пароль:</label>
@@ -26,7 +26,10 @@ $users = new UserController();
          <a class="close__form" href="../index.php">X</a>
       <?php
       if (isset($_POST['loginBtn'])){
-         //$users
+         $login = trim(htmlspecialchars($_POST['loginMail']));
+         $password = trim(htmlspecialchars($_POST['loginPass']));
+         $users->Authorization($login, $password);
+         //$_SESSION['user'] = $login;
       }
       ?>
    </div>

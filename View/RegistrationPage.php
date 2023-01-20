@@ -16,7 +16,7 @@ $users = new UserController();
 <body>
 <div class="login-form__container">
    <form class="login__form">
-      <form class="login__form">
+      <form class="login__form" method="post">
          <label for="loginMail">Эл. адрес:</label>
          <input name="loginMail" type="text">
          <label for="loginPass">Пароль:</label>
