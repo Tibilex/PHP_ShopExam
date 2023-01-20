@@ -15,7 +15,7 @@ include ROOTadm . 'Controller/UserController.php';
 </head>
 <body>
 <div class="container">
-   <header>
+   <header class="navbar--color-user">
       <div class="navbar__navigation">
          <a class="navigation__link" href="#">Оплата</a>
          <a class="navigation__link" href="#">Доставка</a>
@@ -31,28 +31,28 @@ include ROOTadm . 'Controller/UserController.php';
       </div>
    </header>
    <main class="main__container">
-      <div class="admin-account__container">
-         <form class="add-admin__form" method="post">
-
-            <label for="adminLogin">Login:</label>
-            <input name="adminLogin" type="text">
-            <label for="adminPass">Password:</label>
-            <input name="adminPass" type="text">
-            <label for="adminName">Name:</label>
-            <input name="adminName" type="text">
-            <label for="adminPhone">Phone:</label>
-            <input name="adminPhone" type="text">
-            <input type="submit" name="addAdmin" value="Добавить">
+      <div class="user-account__container">
+         <form class="user-account-form__container" method="post">
+            <label for='userName'>Имя:</label>
+            <input type='text' name='userName'>
+            <label for='userPassword'>Пароль:</label>
+            <input type='text' name='userPassword'>
+            <label for='userPhone'>Телефон:</label>
+            <input type='number' name='userPhone'>
+            <label for='userAddress'>Адресс:</label>
+            <input type='text' name='userAddress'>
+            <input type="submit" name="addAdmin" value="Обновить данные">
          </form>
+         <?php
+         $userId = intval($_SESSION['userId']);
+
+         $user = new UserController();
+         $user->showUserData($userId);
+         ?>
+
       </div>
 
-      <?php
-      $userId = intval($_SESSION['userId']);
 
-      $user = new UserController();
-      $user->showUserData($userId);
-      echo $_SESSION['userId'];
-      ?>
    </main>
    <footer>
 

@@ -310,3 +310,67 @@ header{
     color: white;
     border-radius: 6px;
 }
+
+/*  User Account Page  */
+
+.user-account__container{
+    width: 25%;
+    background-color: #4f5d77;
+    height: 100vh;
+}
+.user-account-form__container{
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+}
+.user-account-form__container input{
+    height: 40px;
+    border-radius: 6px;
+}
+.user-account-form__container label{
+    color: white;
+    margin-top: 5px;
+}
+.user-account-form__container input:nth-last-child(-n +1){
+    margin-top: 20px;
+    letter-spacing: 1px;
+    color: white;
+    background-color: #0e860e;
+    text-transform: uppercase;
+    transition: all .5s ease-in-out 0ms;
+}
+.user-account-form__container input:nth-last-child(-n +1):hover{
+    background-color: #1e491e;
+}
+.navbar--color-user{
+    background-color: #4f5d77;
+}
+
+.current-user__container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    margin: 10px 10px;
+}
+.current-user__container p{
+    margin: 0 10px;
+}
+.current-user__container legend{
+    margin: 0 10px;
+}
+.current-user__data-border{
+    margin: 10px 0;
+    width: 100%;
+    color: white;
+    border: 1px solid white;
+    border-radius: 6px;
+    height: 80px;
+}
+.current-user__data-label{
+    letter-spacing: 1px;
+    border-top: 1px solid white;
+    padding-top: 10px;
+    margin-top: 10px;
+}
