@@ -55,7 +55,7 @@ class ProductController
    public function BuildCardProductTile(): string
    {
       return
-       "<form class='product__tile product__tile--pos'>".
+       "<form method='post' class='product__tile product__tile--pos'>".
        "<div class='product__img-block'>".
        "<img class='product__img' src=".$this->product->getImage()." alt='img'>".
        "</div>".
@@ -123,25 +123,54 @@ class ProductController
       else {
          $totalCost = 0;
          if (isset($_SESSION['userId'])) {
-            foreach ($_SESSION['userCartProducts'] as $item) {
-               $request = "SELECT * FROM product_2 WHERE id=$item";
-               if ($results = $connectionString->query($request)) {
+            if (isset($_SESSION['userCartProducts'])){
+               foreach ($_SESSION['userCartProducts'] as $item) {
+                  $request = "SELECT * FROM product_2 WHERE id=$item";
+                  if ($results = $connectionString->query($request)) {
 
-                  foreach ($results as $res) {
+                     foreach ($results as $res) {
 
-                     $products = new ProductController();
-                     $products->setProduct($res["id"], $res["title"], $res["price"], $res["code"], $res["image"], $res["category"]);
-                     echo $products->BuildCardProductTile();
-                     $totalCost += $res["price"];
+                        $products = new ProductController();
+                        $products->setProduct($res["id"], $res["title"], $res["price"], $res["code"], $res["image"], $res["category"]);
+                        echo $products->BuildCardProductTile();
+                        $totalCost += $res["price"];
+                     }
+                     $_SESSION['totalProductsCost'] = $totalCost;
+                     $results->free();
+                  } else {
+                     echo '<p>Data NOT selected!</p>';
                   }
-                  $_SESSION['totalProductsCost'] = $totalCost;
-                  $results->free();
-               } else {
-                  echo '<p>Data NOT selected!</p>';
                }
             }
          }
       }
+      $connectionString->close();
+   }
+
+   public function GetProductBuyHistory(): void
+   {
+      $connectionString = new mysqli("localhost", "root", "", "education");
+      if($connectionString->connect_error){
+         echo 'ERROR';
+      }
+      else {
+
+            if (isset($_SESSION['userBuysHistory'])){
+               foreach ($_SESSION['userBuysHistory'] as $item) {
+                  $request = "SELECT * FROM product_2 WHERE id=$item";
+                  if ($results = $connectionString->query($request)) {
+                     foreach ($results as $res) {
+                        $products = new ProductController();
+                        $products->setProduct($res["id"], $res["title"], $res["price"], $res["code"], $res["image"], $res["category"]);
+                        echo $products->BuildCardProductTile();
+                     }
+                     $results->free();
+                  } else {
+                     echo '<p>Data NOT selected!</p>';
+                  }
+               }
+            }
+         }
       $connectionString->close();
    }
 
@@ -188,7 +217,13 @@ class ProductController
 
    public function DeleteProductInCart(): void
    {
-
+      if (isset($_POST['delProdInCart'])) {
+         foreach ($_SESSION['userCartProducts'] as $key => $item) {
+            if ($item == $_POST['delProdInCart']) {
+               unset($_SESSION['userCartProducts'][$key]);
+            }
+         }
+      }
    }
 
    public function EditProduct($title, $price, $code, $image, $category): void
@@ -210,6 +245,5 @@ class ProductController
          }
       }
    }
-
 
 }

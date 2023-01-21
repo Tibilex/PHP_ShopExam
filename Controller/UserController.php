@@ -61,6 +61,7 @@ class UserController
                      $_SESSION['userPhone'] = $res['phone'];
                      $_SESSION['userAddress'] = $res['address'];
                      $_SESSION['userCartProducts'] = array();
+                     $_SESSION['userBuysHistory'] = array();
                      $_SESSION['totalProductsCost'] = 0;
                   }
                }
@@ -70,6 +71,24 @@ class UserController
             $results->free();
             $connectionString->close();
          }
+      }
+   }
+
+   public function Registration($login, $password): void
+   {
+      $connectionString = new mysqli("localhost", "root", "", "education");
+      if($connectionString->connect_error){
+         echo "error";
+      }
+      else{
+         $data = "INSERT INTO users (mail, password, name, role, phone, address) VALUES ('$login' , '$password', 'No name', 'user', '000', 'no address')";
+         if($connectionString->query($data)){
+            echo "<p>Регистрация успешна</p>";
+         }
+         else{
+            echo "<p>Ошибка регистрации</p>";
+         }
+         $connectionString->close();
       }
    }
 

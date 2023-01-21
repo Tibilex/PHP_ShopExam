@@ -15,18 +15,31 @@ $users = new UserController();
 </head>
 <body>
 <div class="login-form__container">
-   <form class="login__form">
       <form class="login__form" method="post">
-         <label for="loginMail">Эл. адрес:</label>
-         <input name="loginMail" type="text">
-         <label for="loginPass">Пароль:</label>
-         <input name="loginPass" type="password">
-         <label for="loginPassConf">Потдвердите Пароль:</label>
-         <input name="loginPassConf" type="password">
-         <input type="submit" value="Регистрация">
+         <label for="registrationMail">Эл. адрес:</label>
+         <input name="registrationMail" type="text">
+         <label for="registrationPass">Пароль:</label>
+         <input name="registrationPass" type="password">
+         <label for="registrationPassConf">Потдвердите Пароль:</label>
+         <input name="registrationPassConf" type="password">
+         <input type="submit" name="registrationBtn" value="Регистрация">
+         <?php
+         if (isset($_POST['registrationBtn'])){
+            if (isset($_POST['registrationMail']) && isset($_POST['registrationPass']) && isset($_POST['registrationPassConf'])){
+               $mail = $_POST['registrationMail'];
+               $password = $_POST['registrationPass'];
+               $confirmPassword = $_POST['registrationPassConf'];
+               if($password == $confirmPassword){
+                  $users->Registration($mail, $password);
+               }
+            }
+            else{
+               echo "Не все поля заполнены";
+            }
+         }
+         ?>
       </form>
       <a class="close__form" href="../index.php">X</a>
-   </form>
 </div>
 </body>
 </html>

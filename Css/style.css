@@ -185,8 +185,8 @@ header{
     width: 80%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-
+    justify-content: center;
+    gap: 20px;
 }
 .filter__container{
     width: 20%;
@@ -362,6 +362,10 @@ header{
 .user-account-form__container input:nth-last-child(-n +1):hover{
     background-color: #1e491e;
 }
+.user-acc--pos{
+    margin-left: 10px;
+}
+
 .navbar--color-user{
     background-color: #4f5d77;
 }

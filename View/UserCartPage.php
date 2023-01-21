@@ -37,6 +37,11 @@ $products = new ProductController();
          else{
             echo "<div class='empty_cart'>Ваша Корзина пуста</div>";
          }
+
+         if (isset($_POST['delProdInCart'])){
+            $products->DeleteProductInCart();
+            echo "<script> location.href='../View/UserCartPage.php'; </script>";
+         }
          ?>
       </div>
       <div class="buy-all-products__container">
@@ -53,11 +58,15 @@ $products = new ProductController();
                <legend>| Адрес доставки |</legend>
                <div class="user-cart__info"><?php if(isset($_SESSION['userAddress'])) echo $_SESSION['userAddress'];?></div>
             </fieldset>
-            <input type="submit" name="buyCart ">
+            <input type="submit" name="buyCart" value="Потдвердить покупку">
+            <?php
+               if(isset($_POST['buyCart'])){
+                  $_SESSION['userBuysHistory'] = $_SESSION['userCartProducts'];
+                  unset($_SESSION['userCartProducts']);
+                  echo "<script> location.href='../index.php'; </script>";
+               }
+            ?>
          </form>
-         <?php
-
-         ?>
       </div>
 
    </main>

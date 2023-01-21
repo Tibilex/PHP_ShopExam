@@ -2,6 +2,7 @@
 session_start();
 const ROOTadm = 'E:\PHP\ShopExam\\'; // My path for localhost
 include ROOTadm . 'Controller/UserController.php';
+include ROOTadm . 'Controller/ProductController.php';
 ?>
 
 <html lang="en">
@@ -69,13 +70,21 @@ include ROOTadm . 'Controller/UserController.php';
             unset($_SESSION['userAddress']);
             unset($_SESSION['userCartProducts']);
             unset($_SESSION['totalProductsCost']);
+            unset($_SESSION['userBuysHistory']);
             echo "<script> location.href='../index.php';</script>";
          }
 
          ?>
 
       </div>
-
+      <div class="cart-product__container user-acc--pos">
+         <?php
+         if (isset($_SESSION['userBuysHistory'])){
+            $products = new ProductController();
+            $products->GetProductBuyHistory();
+         }
+         ?>
+      </div>
 
    </main>
    <footer>
