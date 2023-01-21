@@ -2,6 +2,7 @@
 session_start();
 include 'Controller/ProductController.php';
 include 'Controller/UserController.php';
+include 'Controller/Paginator.php';
 $products = new ProductController();
 $users = new UserController();
 if (isset($_SESSION['userMail'])){
@@ -46,16 +47,33 @@ else
       <div class="filter__container">
 
       </div>
-      <div class="products__container">
-         <?php
-         $products->GetAllProductsStyled();
+      <div class="products__container-main" >
+         <div class="products__container">
+            <?php
+            $pagination = new Paginator();
 
-         if(isset($_POST['productBuyBtn'])){
-            $itemId = intval($_POST['productBuyBtn']);
-            $_SESSION['userCartProducts'][] = $itemId;
-         }
-         ?>
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            $perPage = isset($_GET['per-page']) ? (int)$_GET['per-page'] : 8;
+            $startPosition = ($page > 1) ? ($page * $perPage) - $perPage : 0;
+            $totalPages = ceil($pagination->GetTableRows() / $perPage);
+
+            $pagination->Paginate($perPage, $startPosition);
+            //$products->GetAllProductsStyled();
+
+            if(isset($_POST['productBuyBtn'])){
+               $itemId = intval($_POST['productBuyBtn']);
+               $_SESSION['userCartProducts'][] = $itemId;
+            }
+            ?>
+         </div>
+         <div class="pagination__container">
+            <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+               <a class="pagination__link <?php if ($page === $i) {echo 'selected';} ?>" href="?page=<?php echo $i?>"><?php echo $i ?></a>
+            <?php endfor; ?>
+
+         </div>
       </div>
+
 
    </main>
    <footer>

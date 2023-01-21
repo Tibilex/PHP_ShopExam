@@ -159,7 +159,9 @@ header{
 .add-admin__form input{
     outline: 0;
     margin: 0 5px 0 5px;
-    height: 30px;
+    height: 40px;
+    border-radius: 10px;
+    padding-left: 10px;
 }
 .add-admin__form input:nth-last-child(-n +1){
     margin-top: 10px;
@@ -182,11 +184,18 @@ header{
 
 }
 .products__container{
-    width: 80%;
+
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+}
+.products__container-main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
 }
 .filter__container{
     width: 20%;
@@ -499,4 +508,35 @@ header{
     font-size: 80px;
     color: grey;
     text-transform: uppercase;
+}
+
+/*  Pagination  */
+
+.pagination__container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+    margin-top: 20px;
+}
+.pagination__link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #5897fb;
+    color: white;
+    text-decoration: none;
+    width: 30px;
+    height: 30px;
+    transition: all .5s ease-in-out .5ms;
+}
+.pagination__link:hover{
+    background-color: #b43c3c;
+}
+.selected{
+    background-color: #b43c3c;
+}
+.selected:hover{
+    background-color: #5897fb;
 }
