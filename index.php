@@ -1,9 +1,9 @@
 <?php
+session_start();
 include 'Controller/ProductController.php';
 include 'Controller/UserController.php';
 $products = new ProductController();
 $users = new UserController();
-session_start();
 if (isset($_SESSION['userMail'])){
    $user = $_SESSION['userMail'];
 }
@@ -43,10 +43,17 @@ else
       </div>
    </header>
    <main class="main__container">
-      <div class="filter__container"></div>
+      <div class="filter__container">
+
+      </div>
       <div class="products__container">
          <?php
          $products->GetAllProductsStyled();
+
+         if(isset($_POST['productBuyBtn'])){
+            $itemId = intval($_POST['productBuyBtn']);
+            $_SESSION['userCartProducts'][] = $itemId;
+         }
          ?>
       </div>
 

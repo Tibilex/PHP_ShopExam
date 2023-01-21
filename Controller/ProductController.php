@@ -1,5 +1,4 @@
 <?php
-
 const ROOTpm = 'E:\PHP\ShopExam\\'; // My path for localhost
 //include ROOTpm . 'Model/ProductModel.php';
 include ROOTpm . 'Model/ProductModel.php';
@@ -47,8 +46,25 @@ class ProductController
       "<div class='product__cost'>".$this->product->getPrice()." грн.</div>".
       "<div class='product__code'>Код товара: ".$this->product->getcode()."</div>".
       "</div>".
-      "<button class='product_buy-button' type='submit' name='productBuyBtn'>Купить</button>".
+      "<form method='post'>".
+      "<button class='product_buy-button' type='submit' value=".$this->product->getId()." name='productBuyBtn'>Купить</button>".
+      "</form>".
       "</div>";
+   }
+
+   public function BuildCardProductTile(): string
+   {
+      return
+       "<form class='product__tile product__tile--pos'>".
+       "<div class='product__img-block'>".
+       "<img class='product__img' src=".$this->product->getImage()." alt='img'>".
+       "</div>".
+       "<div class='product__title'>".$this->product->getTitle()."</div>".
+       "<div class='button-price'>".
+       "<button class='product_buy-button' type='submit' value=".$this->product->getId()." name='delProdInCart'>Удалить товар</button>".
+       "<div class='product__cost product__pos'>".$this->product->getPrice()." грн.</div>".
+       "</div>".
+       "</form>";
    }
 
    public function GetAllProductsAdmin(): void
@@ -77,28 +93,56 @@ class ProductController
 
    public function GetAllProductsStyled(): void
    {
-      {
-         $connectionString = new mysqli("localhost", "root", "", "education");
-         if($connectionString->connect_error){
-            echo 'ERROR';
-         }
-         else{
-            $request = "SELECT * FROM product_2";
-
-            if($results = $connectionString->query($request)) {
-               foreach ($results as $res){
-                  $products = new ProductController();
-                  $products->setProduct($res["id"], $res["title"], $res["price"], $res["code"], $res["image"], $res["category"]);
-                  echo $products->BuildProductStyledTile();
-               }
-               $results->free();
-            }
-            else {
-               echo '<p>Data NOT selected!</p>';
-            }
-         }
-         $connectionString->close();
+      $connectionString = new mysqli("localhost", "root", "", "education");
+      if($connectionString->connect_error){
+         echo 'ERROR';
       }
+      else{
+         $request = "SELECT * FROM product_2";
+         if($results = $connectionString->query($request)) {
+            foreach ($results as $res){
+               $products = new ProductController();
+               $products->setProduct($res["id"], $res["title"], $res["price"], $res["code"], $res["image"], $res["category"]);
+               echo $products->BuildProductStyledTile();
+            }
+            $results->free();
+         }
+         else {
+            echo '<p>Data NOT selected!</p>';
+         }
+      }
+      $connectionString->close();
+   }
+
+   public function GetAllProductsCart(): void
+   {
+      $connectionString = new mysqli("localhost", "root", "", "education");
+      if($connectionString->connect_error){
+         echo 'ERROR';
+      }
+      else {
+         $totalCost = 0;
+         if (isset($_SESSION['userId'])) {
+            foreach ($_SESSION['userCartProducts'] as $item) {
+               $request = "SELECT * FROM product_2 WHERE id=$item";
+               if ($results = $connectionString->query($request)) {
+
+                  foreach ($results as $res) {
+
+                     $products = new ProductController();
+                     $products->setProduct($res["id"], $res["title"], $res["price"], $res["code"], $res["image"], $res["category"]);
+                     echo $products->BuildCardProductTile();
+                     $totalCost += $res["price"];
+                  }
+                  $_SESSION['totalProductsCost'] = $totalCost;
+                  $results->free();
+               } else {
+                  echo '<p>Data NOT selected!</p>';
+               }
+            }
+         }
+      }
+      $connectionString->close();
    }
 
    public function AddProductInDB($title, $price, $code, $image, $category): void
@@ -122,7 +166,6 @@ class ProductController
       }
    }
 
-
    public function DeleteProductInDB(): void
    {
       $connectionString = new mysqli("localhost", "root", "", "education");
@@ -141,6 +184,11 @@ class ProductController
             //echo "<script>document.location = './AdminPage.php';</script>";
          }
       }
+   }
+
+   public function DeleteProductInCart(): void
+   {
+
    }
 
    public function EditProduct($title, $price, $code, $image, $category): void
@@ -162,4 +210,6 @@ class ProductController
          }
       }
    }
+
+
 }

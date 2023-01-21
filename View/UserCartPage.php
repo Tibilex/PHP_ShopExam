@@ -1,3 +1,10 @@
+<?php
+session_start();
+const ROOTadm = 'E:\PHP\ShopExam\\'; // My path for localhost
+include ROOTadm . 'Controller/UserController.php';
+include ROOTadm . 'Controller/ProductController.php';
+$products = new ProductController();
+?>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
@@ -18,11 +25,40 @@
          <a class="navigation__link" href="#">Контакты</a>
       </div>
       <div class="navbar__navigation navbar__accounting">
-         <a class="account__link" href="#">Вход</a>
          <a class="account__link cart__link" href="../index.php">Назад</a>
       </div>
    </header>
-   <main>
+   <main class="cart__container">
+      <div class="cart-product__container">
+         <?php
+         if (isset($_SESSION['userCartProducts'])){
+            $products->GetAllProductsCart();
+         }
+         else{
+            echo "<div class='empty_cart'>Ваша Корзина пуста</div>";
+         }
+         ?>
+      </div>
+      <div class="buy-all-products__container">
+         <form class="buy-all-products__form" method="post">
+            <fieldset class="total__cost-fieldset">
+            <legend>| Итого к оплате |</legend>
+            <div class="total__cost"><?php if(isset($_SESSION['totalProductsCost'])) echo $_SESSION['totalProductsCost'];?><span>грн.</span></div>
+            </fieldset>
+            <fieldset class="total__cost-fieldset">
+               <legend>| Контактный телефон |</legend>
+               <div class="user-cart__info"><?php if(isset($_SESSION['userPhone'])) echo $_SESSION['userPhone'];?></div>
+            </fieldset>
+            <fieldset class="total__cost-fieldset">
+               <legend>| Адрес доставки |</legend>
+               <div class="user-cart__info"><?php if(isset($_SESSION['userAddress'])) echo $_SESSION['userAddress'];?></div>
+            </fieldset>
+            <input type="submit" name="buyCart ">
+         </form>
+         <?php
+
+         ?>
+      </div>
 
    </main>
    <footer>

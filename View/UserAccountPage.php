@@ -65,8 +65,13 @@ include ROOTadm . 'Controller/UserController.php';
          if (isset($_POST['exitInAcc'])){
             unset($_SESSION['userId']);
             unset($_SESSION['userMail']);
+            unset($_SESSION['userPhone']);
+            unset($_SESSION['userAddress']);
+            unset($_SESSION['userCartProducts']);
+            unset($_SESSION['totalProductsCost']);
             echo "<script> location.href='../index.php';</script>";
          }
+
          ?>
 
       </div>

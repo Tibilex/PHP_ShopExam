@@ -58,6 +58,10 @@ class UserController
                      session_start();
                      $_SESSION['userId'] = $res['id'];
                      $_SESSION['userMail'] = $res['mail'];
+                     $_SESSION['userPhone'] = $res['phone'];
+                     $_SESSION['userAddress'] = $res['address'];
+                     $_SESSION['userCartProducts'] = array();
+                     $_SESSION['totalProductsCost'] = 0;
                   }
                }
             }
@@ -108,4 +112,5 @@ class UserController
          }
       }
    }
+
 }
