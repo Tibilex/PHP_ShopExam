@@ -33,7 +33,11 @@ class UserController
       "<legend> Адрес </legend>".
       "<p>".$this->user->getAddress()."</p>".
       "</fieldset>".
-      "</div>";
+      "</div>".
+      "<form class='user-account-form__container' method='post'>".
+      "<input type='submit' name='exitInAcc' value='Выход из аккаунта'>".
+      "</form>";
+
    }
 
    public function Authorization($login, $password): void
@@ -77,11 +81,30 @@ class UserController
                $currentUser = new UserController();
                $currentUser->setUser($res["id"], $res["mail"], $res["password"], $res["name"], $res['role'], $res["phone"], $res["address"]);
                echo $currentUser->BuildUserAccInfo();
-               echo $_SESSION['userMail'];
             }
          }
          else{
             echo "error";
+         }
+      }
+   }
+
+   public function UpdateUserData($name, $password, $phone, $address): void
+   {
+      $connectionString = new mysqli("localhost", "root", "", "education");
+      if ($connectionString->connect_error) {
+         echo "error";
+      }
+      else {
+         $itemId = $_SESSION['userId'];
+
+         $request = "UPDATE users SET password='$password', name='$name', phone='$phone', address='$address' WHERE id='$itemId'";
+
+         if($connectionString->query($request)){
+            $connectionString->close();
+         }
+         else{
+            $connectionString->close();
          }
       }
    }

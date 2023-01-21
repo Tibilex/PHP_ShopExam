@@ -29,7 +29,6 @@ $users = new UserController();
          $login = trim(htmlspecialchars($_POST['loginMail']));
          $password = trim(htmlspecialchars($_POST['loginPass']));
          $users->Authorization($login, $password);
-         //$_SESSION['user'] = $login;
       }
       ?>
    </div>

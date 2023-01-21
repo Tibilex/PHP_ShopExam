@@ -26,7 +26,6 @@ include ROOTadm . 'Controller/UserController.php';
       <div class="navbar__navigation navbar__accounting">
 
          <a class="account__link" href="../index.php">Назад</a>
-         <a class="account__link" id="exitInAcc" href="../index.php">Выход</a>
          <a class="account__link cart__link" href="../View/UserCartPage.php">Корзина</a>
       </div>
    </header>
@@ -41,13 +40,33 @@ include ROOTadm . 'Controller/UserController.php';
             <input type='number' name='userPhone'>
             <label for='userAddress'>Адресс:</label>
             <input type='text' name='userAddress'>
-            <input type="submit" name="addAdmin" value="Обновить данные">
+            <input type="submit" name="updateUser" value="Обновить данные">
          </form>
          <?php
          $userId = intval($_SESSION['userId']);
 
          $user = new UserController();
          $user->showUserData($userId);
+
+         if (isset($_POST['updateUser'])){
+            if ($_POST['userName'] && $_POST['userPassword'] && $_POST['userPhone'] && $_POST['userAddress']){
+               $name = $_POST['userName'];
+               $password = $_POST['userPassword'];
+               $phone = $_POST['userPhone'];
+               $address = $_POST['userAddress'];
+               $user->UpdateUserData($name, $password, $phone, $address);
+               echo "<div class='successfully_msg'>Данные обновлены</div>";
+            }
+            else{
+               echo "<div class='error_msg'>Не все поля заполнены</div>";
+            }
+         }
+
+         if (isset($_POST['exitInAcc'])){
+            unset($_SESSION['userId']);
+            unset($_SESSION['userMail']);
+            echo "<script> location.href='../index.php';</script>";
+         }
          ?>
 
       </div>

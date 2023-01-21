@@ -96,7 +96,6 @@ class AdminController
 
    public function EditUser($mail, $password, $name, $phone, $address): void
    {
-
       $connectionString = new mysqli("localhost", "root", "", "education");
       if ($connectionString->connect_error) {
          echo "error";

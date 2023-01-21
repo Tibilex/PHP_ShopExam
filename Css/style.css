@@ -58,6 +58,25 @@ header{
     border: none;
 }
 
+.error_msg{
+    margin: 10px;
+    padding-left: 10px;
+    color: #b43c3c;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: white;
+    border-radius: 6px;
+}
+.successfully_msg{
+    margin: 10px;
+    padding-left: 10px;
+    color: #0e860e;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: white;
+    border-radius: 6px;
+}
+
 /* admin panel block */
 .admin__panel--main{
     display: flex;
@@ -326,6 +345,7 @@ header{
 .user-account-form__container input{
     height: 40px;
     border-radius: 6px;
+    padding-left: 10px;
 }
 .user-account-form__container label{
     color: white;
