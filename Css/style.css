@@ -205,6 +205,7 @@ header{
     border-radius: 10px;
     border: 1px solid #dfe0e3;
     transition: all .5s ease 0ms;
+    cursor: pointer;
 }
 .product__tile:hover{
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -259,6 +260,7 @@ header{
     height: 30px;
     border-radius: 0 0 0 10px;
     transition: background-color .5s ease 0ms;
+    cursor: pointer;
 }
 .product_buy-button:hover{
     background-color: #b43c3c;

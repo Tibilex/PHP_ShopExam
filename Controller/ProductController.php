@@ -186,10 +186,10 @@ class ProductController
       else{
          $data = "INSERT INTO product_2 (title, price, code, image, category) VALUES ('$title', '$price', '$code', '$fullPath', '$category')";
          if($connectionString->query($data)){
-            echo "<p>Data added!</p>";
+            echo "<div class='successfully_msg'>Data added!</div>";
          }
          else{
-            echo "<p>Data not added!</p>";
+            echo "<div class='error_msg'>Data not added!</div>";
          }
          $connectionString->close();
       }

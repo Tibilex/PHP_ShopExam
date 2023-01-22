@@ -60,7 +60,7 @@ $products = new ProductController();
             </fieldset>
             <input type="submit" name="buyCart" value="Потдвердить покупку">
             <?php
-               if(isset($_POST['buyCart'])){
+               if(isset($_POST['buyCart'])) {
                   $_SESSION['userBuysHistory'] = $_SESSION['userCartProducts'];
                   unset($_SESSION['userCartProducts']);
                   echo "<script> location.href='../index.php'; </script>";
